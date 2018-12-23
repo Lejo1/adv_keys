@@ -109,3 +109,12 @@ minetest.override_item("default:key", {
 		return itemstack
 	end
 })
+
+minetest.register_craft({
+	output = "default:key",
+	recipe = {
+		{"default:gold_ingot", "", "default:gold_ingot"},
+		{"", "default:diamondblock", ""},
+		{"", "", ""}
+	}
+})
