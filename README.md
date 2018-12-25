@@ -8,6 +8,8 @@ It is also player specific so if you lost it nobody can access your chests.
 
 Depends: default
 
-License: CC0
+License: LGPL-2.1
 
 Created by [Lejo](https://github.com/Lejo1)
+
+Parts Derived from [minetest_game](https://github.com/minetest/minetest_game)
