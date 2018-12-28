@@ -4,7 +4,10 @@ local function make_key_form(meta)
 	local ctable = {}
 	for pstring, chest in pairs(meta:to_table().fields) do
 		if pstring ~= "owner" and pstring ~= "user" and pstring ~= "secret" and pstring ~= "description" then
-			table.insert(ctable, string.split(chest, " ")[2].." at "..minetest.formspec_escape(pstring))
+			local chesttable = string.split(chest, " ")
+			table.remove(chesttable, 1)
+			local cheststring = table.concat(chesttable, " ")
+			table.insert(ctable, cheststring.." at "..minetest.formspec_escape(pstring))
 		end
 	end
 	local form = "size[5,4]" ..
@@ -26,7 +29,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		if fields.save then
 			meta:set_string("user", fields.user)
 		elseif fields.delete then
-			meta:set_string(string.split(fields.chestlist, " ")[3], "")
+			local chesttable = string.split(fields.chestlist, " ")
+			meta:set_string(chesttable[#chesttable], "")
 			minetest.show_formspec(name, "adv_keys:key_form", make_key_form(meta))
 		end
 		player:set_wielded_item(itemstack)
