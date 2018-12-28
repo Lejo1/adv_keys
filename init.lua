@@ -94,17 +94,19 @@ minetest.override_item("default:key", {
 			return itemstack
 		end
 
-		local ndef = minetest.registered_nodes[node.name]
-		if not ndef then
+		if not def then
 			return itemstack
 		end
 
-		local on_key_use = ndef.on_key_use
-		if on_key_use and meta:get_string("user") == placer:get_player_name() then
+		local on_key_use = def.on_key_use
+		if meta:get_string("user") == placer:get_player_name() then
       meta:set_string("secret", string.split(meta:get_string(minetest.pos_to_string(pos)), " ")[1])
-			minetest.after(0.1, function()
-				on_key_use(pos, placer)
-			end)
+			if on_key_use then
+				minetest.after(0.1, function()
+					on_key_use(pos, placer)
+				end)
+			end
+		else meta:set_string("secret", "no")
 		end
 		return itemstack
 	end
