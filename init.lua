@@ -38,6 +38,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 end)
 
 minetest.unregister_item("default:skeleton_key")
+
+-- register alias for existing keys (in this case a replacement ingot)
+minetest.register_alias("default:skeleton_key", "default:gold_ingot")
+
 minetest.override_item("default:key", {
 	description = "Advanced Key",
 	inventory_image = "default_key.png",
