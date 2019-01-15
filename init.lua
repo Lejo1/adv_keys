@@ -107,7 +107,7 @@ minetest.override_item("default:key", {
 		end
 
 		local on_key_use = def.on_key_use
-		if meta:get_string("user") == placer:get_player_name() then
+		if meta:get_string("user") == placer:get_player_name() and meta:get_string(minetest.pos_to_string(pos)) ~= "" then
       meta:set_string("secret", string.split(meta:get_string(minetest.pos_to_string(pos)), " ")[1])
 			if on_key_use then
 				minetest.after(0.1, function()
