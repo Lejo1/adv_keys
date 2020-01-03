@@ -28,10 +28,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 		if fields.save then
 			meta:set_string("user", fields.user)
-		elseif fields.delete then
+		elseif fields.delete and type(fields.chestlist) == "string" then
 			local chesttable = string.split(fields.chestlist, " ")
-			meta:set_string(chesttable[#chesttable], "")
-			minetest.show_formspec(name, "adv_keys:key_form", make_key_form(meta))
+			if type(chesttable) == "table" and type(chesttable[#chesttable]) == "string" then
+				meta:set_string(chesttable[#chesttable], "")
+				minetest.show_formspec(name, "adv_keys:key_form", make_key_form(meta))
+			end
 		end
 		player:set_wielded_item(itemstack)
 	end
