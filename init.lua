@@ -39,14 +39,14 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
-minetest.unregister_item("default:skeleton_key")
+minetest.unregister_item("keys:skeleton_key")
 
 -- register alias for existing keys (in this case a replacement ingot)
-minetest.register_alias("default:skeleton_key", "default:gold_ingot")
+minetest.register_alias("keys:skeleton_key", "default:gold_ingot")
 
-minetest.override_item("default:key", {
+minetest.override_item("keys:key", {
 	description = "Advanced Key",
-	inventory_image = "default_key.png",
+	inventory_image = "keys_key.png",
 	groups = {key = 1},
 	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
@@ -123,7 +123,7 @@ minetest.override_item("default:key", {
 })
 
 minetest.register_craft({
-	output = "default:key",
+	output = "keys:key",
 	recipe = {
 		{"default:gold_ingot", "", "default:gold_ingot"},
 		{"", "default:diamondblock", ""},
