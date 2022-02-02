@@ -6,7 +6,7 @@ So you can open multiple chests with it.
 
 It is also player specific so if you lost it nobody can access your chests.
 
-Depends: default
+Depends: default, keys
 
 License: LGPL-2.1
 
