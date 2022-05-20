@@ -39,10 +39,17 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
-minetest.unregister_item("keys:skeleton_key")
+-- Clear old key crafts (would otherwise be pointless gold to gold crafts)
+minetest.clear_craft({
+	output = "keys:skeleton_key",
+})
+minetest.clear_craft({
+	type = "cooking",
+	recipe = "keys:skeleton_key",
+})
 
--- register alias for existing keys (in this case a replacement ingot)
-minetest.register_alias("keys:skeleton_key", "default:gold_ingot")
+-- Register alias for existing keys (in this case a replacement ingot)
+minetest.register_alias_force("keys:skeleton_key", "default:gold_ingot")
 
 minetest.override_item("keys:key", {
 	description = "Advanced Key",
