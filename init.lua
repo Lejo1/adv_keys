@@ -1,4 +1,4 @@
---  Overrides the Skeleton_key with a Advanced one.
+-- Overrides the Skeleton_key with a Advanced one.
 
 local function make_key_form(meta)
 	local ctable = {}
@@ -57,16 +57,16 @@ minetest.override_item("keys:key", {
 	groups = {key = 1},
 	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
-    local meta = itemstack:get_meta()
-    local name = user:get_player_name()
-    if not meta:get_string("owner") or meta:get_string("owner") == "" then
-      meta:set_string("owner", name)
-      meta:set_string("description", "Key by "..name)
-    end
-    if meta:get_string("owner") ~= name then
-      minetest.chat_send_player(name, "You are not the owner of the key!")
-      return itemstack
-    end
+	local meta = itemstack:get_meta()
+	local name = user:get_player_name()
+	if not meta:get_string("owner") or meta:get_string("owner") == "" then
+		meta:set_string("owner", name)
+		meta:set_string("description", "Key by "..name)
+	end
+	if meta:get_string("owner") ~= name then
+		minetest.chat_send_player(name, "You are not the owner of the key!")
+		return itemstack
+	end
 		if pointed_thing.type ~= "node" then
 			minetest.show_formspec(name, "adv_keys:key_form", make_key_form(meta))
 			return itemstack
@@ -84,7 +84,7 @@ minetest.override_item("keys:key", {
 			return itemstack
 		end
 
-		-- make a new key secret in case the node callback needs it
+		-- Make a new key secret in case the node callback needs it
 		local random = math.random
 		local newsecret = string.format(
 			"%04x%04x%04x%04x",
@@ -96,10 +96,10 @@ minetest.override_item("keys:key", {
 		if secret then
 			meta:set_string(minetest.pos_to_string(pos), secret.." "..minetest.registered_nodes[node.name].description)
 		end
-    return itemstack
+	return itemstack
 	end,
-  on_place = function(itemstack, placer, pointed_thing)
-    local meta = itemstack:get_meta()
+	on_place = function(itemstack, placer, pointed_thing)
+	local meta = itemstack:get_meta()
 		local pos = pointed_thing.under
 		local node = minetest.get_node(pos)
 		local def = minetest.registered_nodes[node.name]
@@ -117,13 +117,14 @@ minetest.override_item("keys:key", {
 
 		local on_key_use = def.on_key_use
 		if meta:get_string("user") == placer:get_player_name() and meta:get_string(minetest.pos_to_string(pos)) ~= "" then
-      meta:set_string("secret", string.split(meta:get_string(minetest.pos_to_string(pos)), " ")[1])
+			meta:set_string("secret", string.split(meta:get_string(minetest.pos_to_string(pos)), " ")[1])
 			if on_key_use then
 				minetest.after(0.1, function()
 					on_key_use(pos, placer)
 				end)
 			end
-		else meta:set_string("secret", "no")
+		else
+			meta:set_string("secret", "no")
 		end
 		return itemstack
 	end
