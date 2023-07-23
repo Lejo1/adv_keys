@@ -23,7 +23,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		local itemstack = player:get_wielded_item()
 		local name = player:get_player_name()
 		local meta = itemstack:get_meta()
-		if not meta:get_string("description") == "Key by "..name then
+		if meta:get_string("description") ~= "Key by "..name then
 			return
 		end
 		if fields.save then
